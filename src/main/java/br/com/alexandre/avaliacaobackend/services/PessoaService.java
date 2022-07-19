@@ -27,4 +27,9 @@ public class PessoaService {
 		return pessoa.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto Id " + id + " não encontrado, Tipo: " + Pessoa.class.getName()));		
 	}
+
+	public Pessoa insert(Pessoa obj) {
+		obj.setId(null);
+		return repository.save(obj);		
+	}
 }

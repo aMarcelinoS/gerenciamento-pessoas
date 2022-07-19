@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -21,6 +23,8 @@ public class Pessoa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dtNascimento;
 	
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
