@@ -45,5 +45,11 @@ public class PessoaResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	
+	//Endpoint para atualizar dados da pessoa
+	@PostMapping(value = "/{id}")
+	public ResponseEntity<Pessoa> update(@PathVariable Long id, @RequestBody Pessoa obj){
+		obj.setId(id);
+		Pessoa pessoa = service.update(obj);
+		return ResponseEntity.ok().body(pessoa);
+	}	
 }

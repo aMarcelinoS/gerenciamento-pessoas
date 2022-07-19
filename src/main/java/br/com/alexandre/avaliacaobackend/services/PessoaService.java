@@ -27,9 +27,18 @@ public class PessoaService {
 		return pessoa.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto Id " + id + " não encontrado, Tipo: " + Pessoa.class.getName()));		
 	}
-
+	
+	//Insere nova pessoa no BD
 	public Pessoa insert(Pessoa obj) {
 		obj.setId(null);
 		return repository.save(obj);		
+	}
+
+	//Atualiza pessoa cadastrada do BD
+	public Pessoa update(Pessoa obj) {
+		Pessoa newObj = find(obj.getId());
+		newObj.setNome(obj.getNome());
+		newObj.setDtNascimento(obj.getDtNascimento());		
+		return repository.save(newObj);		
 	}
 }
