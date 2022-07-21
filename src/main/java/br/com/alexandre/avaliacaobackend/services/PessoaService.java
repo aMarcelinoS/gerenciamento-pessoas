@@ -15,6 +15,9 @@ public class PessoaService {
 	
 	@Autowired
 	private PessoaRepository repository;
+	
+//	@Autowired
+//	private EnderecoRepository enderecoRepository;
 
 	//Busca pessoas cadastradas no banco de dados
 	public List<Pessoa> findAll() {
@@ -31,7 +34,7 @@ public class PessoaService {
 	//Insere nova pessoa no BD
 	public Pessoa insert(Pessoa obj) {
 		obj.setId(null);
-		return repository.save(obj);		
+		return repository.save(obj);	
 	}
 
 	//Atualiza pessoa cadastrada do BD
@@ -41,4 +44,11 @@ public class PessoaService {
 		newObj.setDtNascimento(obj.getDtNascimento());		
 		return repository.save(newObj);		
 	}
+
+//	public Pessoa fromDTO(PessoaDTO objDto) {
+//		Pessoa pessoa = new Pessoa(null, objDto.getNome(), objDto.getDtNascimento());
+//		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getCep(), objDto.getNumero(), objDto.getCidade(), pessoa);
+//		pessoa.getEnderecos().add(end);
+//		return pessoa;
+//	}
 }

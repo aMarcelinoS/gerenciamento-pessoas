@@ -27,7 +27,6 @@ public class Endereco implements Serializable{
 	private Pessoa pessoa;
 
 	public Endereco() {
-		super();
 	}
 
 	public Endereco(Long id, String logradouro, String cep, Integer numero, String cidade, Pessoa pessoa) {

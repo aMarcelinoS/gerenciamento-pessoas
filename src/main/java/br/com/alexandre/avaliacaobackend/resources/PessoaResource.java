@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,13 +41,13 @@ public class PessoaResource {
 	//Endpoint para cadastrar uma pessoa
 	@PostMapping
 	public ResponseEntity<Pessoa> insert(@RequestBody Pessoa obj){
-		Pessoa pessoa = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pessoa.getId()).toUri();
-		return ResponseEntity.created(uri).build();
+		obj = service.insert(obj);		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).body(obj);
 	}
 	
 	//Endpoint para atualizar dados da pessoa
-	@PostMapping(value = "/{id}")
+	@PutMapping(value = "/{id}")
 	public ResponseEntity<Pessoa> update(@PathVariable Long id, @RequestBody Pessoa obj){
 		obj.setId(id);
 		Pessoa pessoa = service.update(obj);
