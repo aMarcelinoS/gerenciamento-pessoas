@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.alexandre.avaliacaobackend.domain.Endereco;
+import br.com.alexandre.avaliacaobackend.dto.EnderecoDTO;
 import br.com.alexandre.avaliacaobackend.services.EnderecoService;
 
 @RestController
@@ -26,13 +27,15 @@ public class EnderecoResource {
 	@GetMapping
 	public ResponseEntity<List<Endereco>> findAll(){
 		List<Endereco> list = service.findAll();
+		//List<EnderecoDTO> listDto = list.stream().map(obj -> new EnderecoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(list);		
 	}
 	
 	@PostMapping
-	public ResponseEntity<Endereco> insert(@RequestBody Endereco obj){
-		Endereco end = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(end.getId()).toUri();
+	public ResponseEntity<Void> insert(@RequestBody EnderecoDTO objDto){
+		Endereco obj = service.fromDTO(objDto); 
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 }

@@ -1,71 +1,52 @@
 package br.com.alexandre.avaliacaobackend.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import br.com.alexandre.avaliacaobackend.domain.Endereco;
+import br.com.alexandre.avaliacaobackend.domain.Pessoa;
 
 public class PessoaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private Long id;
 	private String nome;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dtNascimento;
 	
-	private String logradouro;
-	private String cep;
-	private Integer numero;
-	private String cidade;	
-	
-	public PessoaDTO() {
+	private List<Endereco> enderecos = new ArrayList<>();
+
+	public PessoaDTO(Pessoa obj) {
+		this.id = obj.getId();
+		this.nome = obj.getNome();
+		this.dtNascimento = obj.getDtNascimento();
+		this.enderecos = obj.getEnderecos();
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Long getId() {
+		return id;
+	}
+	
 	public String getNome() {
 		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public Date getDtNascimento() {
 		return dtNascimento;
 	}
 
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
-	}
-
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public Integer getNumero() {
-		return numero;
-	}
-
-	public void setNumero(Integer numero) {
-		this.numero = numero;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public List<Endereco> getEnderecos() {
+		return enderecos;
 	}
 }

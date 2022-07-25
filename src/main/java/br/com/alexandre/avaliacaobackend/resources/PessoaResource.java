@@ -2,6 +2,7 @@ package br.com.alexandre.avaliacaobackend.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.alexandre.avaliacaobackend.domain.Pessoa;
+import br.com.alexandre.avaliacaobackend.dto.PessoaDTO;
 import br.com.alexandre.avaliacaobackend.services.PessoaService;
 
 @RestController
@@ -26,12 +28,13 @@ public class PessoaResource {
 	
 	//Endpoint para listar pessoas cadastradas
 	@GetMapping
-	public ResponseEntity<List<Pessoa>> findAll() {
+	public ResponseEntity<List<PessoaDTO>> findAll() {
 		List<Pessoa> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<PessoaDTO> listDto = list.stream().map(obj -> new PessoaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
-	//Endpoint para buscar cliente pelo id
+	//Endpoint para consultar pessoa
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Pessoa> findById(@PathVariable Long id){
 		Pessoa obj = service.find(id);

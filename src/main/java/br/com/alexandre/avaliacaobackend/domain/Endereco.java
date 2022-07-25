@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Endereco implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -21,7 +23,9 @@ public class Endereco implements Serializable{
 	private String cep;
 	private Integer numero;
 	private String cidade;
+	private Integer tipo;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "pessoa_id")
 	private Pessoa pessoa;
@@ -29,13 +33,14 @@ public class Endereco implements Serializable{
 	public Endereco() {
 	}
 
-	public Endereco(Long id, String logradouro, String cep, Integer numero, String cidade, Pessoa pessoa) {
+	public Endereco(Long id, String logradouro, String cep, Integer numero, String cidade, Pessoa pessoa, TipoEndereco tipo) {
 		this.id = id;
 		this.logradouro = logradouro;
 		this.cep = cep;
 		this.numero = numero;
 		this.cidade = cidade;
 		this.pessoa = pessoa;
+		this.tipo = tipo.getCod();
 	}
 
 	public Long getId() {
@@ -84,6 +89,14 @@ public class Endereco implements Serializable{
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public TipoEndereco getTipo() {
+		return TipoEndereco.toEnum(tipo);
+	}
+
+	public void setTipo(TipoEndereco tipo) {
+		this.tipo = tipo.getCod();
 	}
 
 	@Override

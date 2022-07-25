@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -28,7 +27,6 @@ public class Pessoa implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dtNascimento;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
@@ -67,10 +65,6 @@ public class Pessoa implements Serializable {
 
 	public List<Endereco> getEnderecos() {
 		return enderecos;
-	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
 	}
 
 	@Override
